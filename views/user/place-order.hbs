@@ -1,0 +1,43 @@
+<section><div class="row container mt-5">
+    <div class="col-md-5 ms-5 card">
+<h4 class="pt-2">Enter Delivery Details</h4><hr>
+<form action="" id="paymentForm">
+<label for="">Address</label><br>
+<textarea name="address" id="" cols="30" rows="3" value="" class="form-action"></textarea><br>
+
+<label for="">Pincode</label><br>
+<input type="number" name="pincode" class="form-action"><br>
+
+<label for="">Mobile</label><br>
+<input type="number" name="mobile" class="form-action">
+</div>
+<div class="col-md-4 card pt-3 pb-3 card">
+         <h4>Total Amount: Rs.{{total}}</h4>
+         <hr>
+    <h6>Payment Methods</h6><hr>
+    <br>
+    
+    <input type="radio" name="payment" value="COD" id="">
+    <label for="">COD</label>
+    <br>
+                   <input type="text" name="userId" value="{{user._id}}" hidden>
+                   
+    <input type="radio" name="payment" value="online" id="">
+    <label for="">Online Payments</label>
+    <br>
+    <button type="submit" class="btn btn-info float-end">Check Out</button>
+</div>
+</form>
+
+
+
+</div>
+</section>
+<style>
+    .form-action{
+        width:100%;
+        border-radius: 3px;
+        border-style:outset;
+        border: ;
+    }
+</style>

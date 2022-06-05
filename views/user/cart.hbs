@@ -1,0 +1,53 @@
+<section>
+    <div class="container">
+        {{#each products}}
+        <div class="card col-md-6 col-12 float-start" style="height:300px ;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card " style="width: 50%; height:150px;align-items: center;">
+                        <div class="card-body">
+                            <img src="/product-images/{{this.product._id}}.jpg" alt="image here"
+                                style="width:100px;height:110px;">
+                        </div>
+                    </div>
+                    <div class="card" style="width:50%;height:150px">
+                        <h5 class="pt-2">Quantity</h5>
+                        <button class="btn" style="background-color:#3e97a7 ;"onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                        <b class="text-center"><span id="{{this.product._id}}">{{this.quantity}}</span></b>
+                        <button class="btn" style="background-color:#3e97a7 ;"onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="float-start pt-3 col-md-6 col-12" style="50%">
+                        <h5 class="card-title">{{this.product.name}}</h5>
+                        <p class="card-text">RS.{{this.product.price}}</p>
+                    </div>
+                    <div class="float-start pt-3 ps-1 col-md-6 col-12" style="50%">
+                        <a href="/cartdelete/{{this.product._id}}" class="btn btn-danger"
+                            onclick="return confirm('Are you want remove?')">Remove Item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="container">
+        <div class="row" style="width:100%;">
+            <div class=" col-md-12 col-12">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h4>Gross Total: RS.{{total}}</h4>
+                                <a href="/place-order" class="btn btn-success">Place Order</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
