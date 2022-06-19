@@ -80,9 +80,10 @@ router.get('/cart', loggedSuccess, async (req, res) => {
 
 router.get("/addtocart/:id", (req, res) => {
   if(req.session.user){
-  productHelpers.addToCart(req.params.id, req.session.user._id).then(() => {
-    res.json({ status: true })
-  })}
+  productHelpers.addToCart(req.params.id, req.session.user._id).then((response) => {
+  res.json({status:true })
+    })
+  }
   else{
     res.json({status:false})
   } 

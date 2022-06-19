@@ -1,6 +1,7 @@
 var express = require('express');
 const productHelpers = require('../helpers/product-helpers');
-const adminHelpers = require('../helpers/admin-helpers')
+const adminHelpers = require('../helpers/admin-helpers');
+const { response } = require('express');
 var router = express.Router();
 
 /* GET users listing. */
@@ -9,43 +10,45 @@ const verifyLogin= (req,res,next)=>{
     next();
   }
   else{
-    res.redirect("/admin/login2")
+    res.redirect("/admin/login")
   }
 }
 router.get('/',verifyLogin, function (req, res, next) {
   
   productHelpers.getAllProducts().then((products) => {
-    res.render('admin/view-products', { products, admin: true })
+    res.render('admin/view-products', { products, admin: true,admindata:req.session.admin })
   })
 });
-router.get('/login2', (req, res) => {
+router.get('/login', (req, res) => {
 if(req.session.adminLoggedIn){
   res.redirect('/admin')
   }
-  else res.render("admin/adminlogin")
+  else res.render("admin/adminlogin",{admin:true})
 })
-router.post("/login2", (req, res) => {
+router.post("/login", (req, res) => {
   adminHelpers.doAdminLogin(req.body).then((response) => {
     if(response.adminStatus) {
       req.session.adminLoggedIn = true
       req.session.admin = response.admin;
-      res.redirect('/admin')
+      res.redirect('/admin');
     } else {
       req.session.adminLoginErr = "Invalid username or password"
-      res.redirect('admin/login2');
+      res.redirect('admin/login');
     }
   })
 })
 router.get('/admin-logout',verifyLogin, (req, res) => {
-  req.session.user=null;
-  req.session.userLoggedIn=null;
-    res.redirect('/');
+  req.session.admin=null;
+  req.session.adminLoggedIn=null;
+    res.redirect('/admin');
   })
-router.get('/signup',(req,res)=>{
-  adminHelpers.doSignup()
-})
+
+// router.get('/signup',(req,res)=>{
+//   adminHelpers.doSignup()
+// })
+
 router.get('/add-products',verifyLogin, function (req, res) {
-  res.render('admin/add-products', { admin: true })
+  res.render('admin/add-products', { admin: true, admindata:req.session.admin })
 })
 
 router.post('/add-products',verifyLogin, (req, res) => {
@@ -74,7 +77,7 @@ router.get('/delete-products/:id',verifyLogin, (req, res) => {
 router.get('/edit-products/:id',verifyLogin, async (req, res) => {
   let products = await productHelpers.getProductDetails(req.params.id).then((product) => {
     console.log(product);
-    res.render('admin/edit-products', { product })
+    res.render('admin/edit-products', { product ,admin:true, admindata:req.session.admin })
   })
 })
 router.post('/edit-products/:id',verifyLogin, (req, res) => {
@@ -82,6 +85,10 @@ router.post('/edit-products/:id',verifyLogin, (req, res) => {
     res.redirect('/admin');
   }
   )
+})
+router.get('/orders',verifyLogin, async(req,res)=>{
+  let orders =await adminHelpers.getOrders()
+  res.render('admin/view-orders',{orders,admin:true, admindata:req.session.admin})
 })
 
 module.exports = router; 

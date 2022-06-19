@@ -4,12 +4,13 @@ function addToCart(proId) {
         url: "/addtocart/"+ proId,
         method: 'get',
         success: (response) => {
-            if (response.status) {
+                if (response.status) {
                 let count = $('#cart-count').html()
                 count = parseInt(count) + 1
-                $('#cart-count').html(count)
+                    $('#cart-count').html(count)
             }
             else{
+                // login msg
                 document.getElementById(proId).style.visibility="visible"
             }
          }
@@ -107,3 +108,4 @@ function verifyPayment(payment,order){
                }
             })
         }
+       
