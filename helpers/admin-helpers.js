@@ -31,7 +31,7 @@ module.exports = {
             }
 
         })
-    }
+    },
     //  doSignup:()=>{
     //     async function pass(){
     //    let encryptpass=await bcrypt.hash("12345", 10);
@@ -50,5 +50,14 @@ module.exports = {
     //      pass();
 
     //  }
+
+    getOrders: () => {
+        return new Promise(async (resolve, reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
+            resolve(orders)
+            
+        })
  
 }
+}
+

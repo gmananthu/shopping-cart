@@ -2,9 +2,12 @@ var collection = require('../config/collection')
 var Promise = require('promise')
 var db = require('../config/connection')
 var bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const { USER_COLLECTION } = require('../config/collection')
-const async = require('hbs/lib/async')
+const { USER_COLLECTION } = require('../config/collection');
+const async = require('hbs/lib/async');
 const { response } = require('express');
 const { promise } = require('bcrypt/promises');
 const { resolve } = require('promise');

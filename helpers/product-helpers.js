@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response} = require('express');
 const { promiseCallback } = require('express-fileupload/lib/utilities');
 const async = require('hbs/lib/async');
 const { resolve } = require('promise');
@@ -36,7 +36,8 @@ module.exports = {
     getAllProducts: () => {
         return new Promise((resolve, reject) => {
             let products = db.get().collection(collection.PRODUCT_COLLECTION).find().toArray();
-            resolve(products)
+           
+             resolve(products)
         })
     },
     deleteProduct: (proId) => {
@@ -77,7 +78,6 @@ module.exports = {
             let userobj = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             if (userobj) {
                 let proExist = userobj.products.findIndex(product => product.item == proId);
-                console.log(proExist)
                 if (proExist !== -1) {
                     db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId), 'products.item': objectId(proId) },
                         {
@@ -87,11 +87,12 @@ module.exports = {
                         })
                 }
                 else {
+                   
                     db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId) }, {
-                        $push: {
+                      $push: {
                             products: proObj
                         }
-                    }).then((response) => {
+                    }).then(() => {
                         resolve();
                     })
                 }

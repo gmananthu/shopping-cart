@@ -9,11 +9,18 @@
 <input name="category" type="text" value="" style="width: 300px;"><br>
 <label for="">Price</label><br>
 <input name="price" type="number" value="" style="width: 300px;"><br>
-<label for="image">add image</label><br>
-<input name="image" type="file"><br><br>
+<img src="" style="width: 100px;height:auto" id="imgView"><br>
+{{!-- <label for="image">add image</label><br> --}}
+<input name="image" type="file" onchange="viewImage(event)"><br><br>
 <input type="submit" value="Submit" class="btn btn-success">
 
 </form>
 
     </div>
 </section>
+
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>
